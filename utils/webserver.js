@@ -2,6 +2,7 @@ var WebpackDevServer = require("webpack-dev-server"),
     webpack = require("webpack"),
     config = require("../webpack.config"),
     env = require("./env"),
+    fs = require("fs"),
     path = require("path");
 
 require("./prepare");
@@ -27,8 +28,10 @@ var compiler = webpack(config);
 var server =
   new WebpackDevServer(compiler, {
     hot: true,
-    https: true,
-    secure: false,
+    https: {
+      cert: fs.readFileSync(path.join(__dirname, "../localhost-public.pem")),
+      key: fs.readFileSync(path.join(__dirname, "../localhost-private.pem"))
+    },
     inline: true,
     contentBase: path.join(__dirname, "../build"),
     headers: {
