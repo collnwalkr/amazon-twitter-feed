@@ -13,8 +13,8 @@ for (var entryName in config.entry) {
   if (excludeEntriesToHotReload.indexOf(entryName) === -1) {
     config.entry[entryName] =
       [
-        ("webpack-dev-server/client?http://localhost:" + env.PORT),
-        "webpack/hot/dev-server"
+        ('webpack-dev-server/client?https://' + require("ip").address() + ':443'),
+          "webpack/hot/only-dev-server",
       ].concat(config.entry[entryName]);
   }
 }
@@ -27,8 +27,13 @@ var compiler = webpack(config);
 var server =
   new WebpackDevServer(compiler, {
     hot: true,
+    https: true,
+    secure: false,
+    inline: true,
     contentBase: path.join(__dirname, "../build"),
-    headers: { "Access-Control-Allow-Origin": "*" }
+    headers: {
+        "Access-Control-Allow-Origin": "*"
+    }
   });
 
-server.listen(env.PORT);
+server.listen(443);

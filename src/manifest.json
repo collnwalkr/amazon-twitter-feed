@@ -1,5 +1,5 @@
 {
-  "name": "Chrome Extension Webpack",
+  "name": "Amazon Twitter Feed",
   "options_page": "options.html",
   "background": {
     "page": "background.html"
@@ -8,5 +8,11 @@
     "default_popup": "popup.html"
   },
   "manifest_version": 2,
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "content_scripts": [
+    {
+      "matches": ["*://www.amazon.com/"],
+      "js": ["test.bundle.js"]
+    }
+  ]
 }

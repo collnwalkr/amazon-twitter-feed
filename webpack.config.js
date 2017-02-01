@@ -28,7 +28,7 @@ module.exports = {
     module: {
         loaders: [
             { test: /\.vue/, loader: "vue-loader" },
-            { test: /\.js$/, loader: "babel", query:{ compact: false } },
+            { test: /\.js$/, loader: "babel-loader", query:{ compact: false } },
             { test: /\.css$/, loader: "style-loader!css-loader" }
         ]
     },
