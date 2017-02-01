@@ -2,6 +2,4 @@ node_modules
 .idea/
 build
 npm-debug.log
-localhost-private.pem
-localhost-public.pem
 secrets.*.js

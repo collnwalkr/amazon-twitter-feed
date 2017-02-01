@@ -12,7 +12,7 @@
   "content_scripts": [
     {
       "matches": ["*://www.amazon.com/"],
-      "js": ["test.bundle.js"]
+      "js": ["main.bundle.js"]
     }
   ]
 }

@@ -1,24 +1,14 @@
 var webpack = require("webpack"),
     path = require("path"),
-    fileSystem = require("fs"),
     env = require("./utils/env"),
     HtmlWebpackPlugin = require("html-webpack-plugin"),
     WriteFilePlugin = require("write-file-webpack-plugin");
 
-// load the secrets
-var alias = {};
-
-var secretsPath = path.join(__dirname, ("secrets." + env.NODE_ENV + ".js"));
-
-if (fileSystem.existsSync(secretsPath)) {
-    alias["secrets"] = secretsPath;
-}
-
 module.exports = {
     entry: {
+        main: path.join(__dirname, "src", "main.js"),
         popup: path.join(__dirname, "src", "js", "popup.js"),
         options: path.join(__dirname, "src", "js", "options.js"),
-        test: path.join(__dirname, "src", "test.js"),
         background: path.join(__dirname, "src", "js", "background.js")
     },
     output: {
@@ -26,18 +16,49 @@ module.exports = {
         filename: "[name].bundle.js"
     },
     module: {
-        loaders: [
-            { test: /\.vue/, loader: "vue-loader" },
-            { test: /\.js$/, loader: "babel-loader", query:{ compact: false } },
-            { test: /\.css$/, loader: "style-loader!css-loader" }
+        rules: [
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
+                        // the "scss" and "sass" values for the lang attribute to the right configs here.
+                        // other preprocessors should work out of the box, no loader config like this nessessary.
+                        'scss': 'vue-style-loader!css-loader!sass-loader',
+                        'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+                    }
+                    // other vue-loader options go here
+                }
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/
+            },
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]?[hash]'
+                }
+            }
         ]
     },
     resolve: {
-        alias: alias
+        alias: {
+            'vue$': 'vue/dist/vue.common.js'
+        }
     },
+    devServer: {
+        historyApiFallback: true,
+        noInfo: true
+    },
+    performance: {
+        hints: false
+    },
+    devtool: '#eval-source-map',
     plugins: [
-        // expose and write the allowed env vars on the compiled bundle
-        new webpack.DefinePlugin({ "process.env": JSON.stringify(env) }),
         new HtmlWebpackPlugin({
             template: path.join(__dirname, "src", "popup.html"),
             filename: "popup.html",
@@ -53,6 +74,27 @@ module.exports = {
             filename: "background.html",
             chunks: ["background"]
         }),
-        new WriteFilePlugin()
+        new WriteFilePlugin(),
     ]
-};
+}
+
+if (process.env.NODE_ENV === 'production') {
+    module.exports.devtool = '#source-map'
+    // http://vue-loader.vuejs.org/en/workflow/production.html
+    module.exports.plugins = (module.exports.plugins || []).concat([
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            sourceMap: true,
+            compress: {
+                warnings: false
+            }
+        }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true
+        })
+    ])
+}

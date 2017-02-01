@@ -1,12 +1,23 @@
 <template>
-    <div>this is template body</div>
+
+    <div>
+        this is template body
+
+        <h1>{{ msg }}</h1>
+    </div>
+
 </template>
-<style>
-    body{
-        background-color:#ff0000;
+
+<style scoped>
+
+    div{
+        background-color: green;
     }
+
 </style>
+
 <script>
+
     export default{
         data(){
             return{
@@ -14,4 +25,5 @@
             }
         },
     }
+
 </script>
