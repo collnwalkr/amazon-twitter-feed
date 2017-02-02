@@ -1,0 +1,29 @@
+// DIMENSIONS
+$widget-height: 400px;
+$sidebar-width: 310px;
+$tweet-width  : 289px;
+$tweet-height : 128px;
+$tweet-padding: 15px 12px 10px 12px;
+
+// FONTS
+$font      :  Arial,sans-serif;
+$large-font:  14px;
+$small-font:  12px;
+
+// COLORS
+$sidebar-color: #F9F9F9;
+$side-accent  : #247BBD;
+$link-color   : #247BBD;
+$font-color   : #111;
+$amazon-color : #C45500;
+$hashtag-color: #777;
+
+// DROP SHADOWS
+@mixin hover-drop(){
+  box-shadow: 0 1px 3px rgba(136, 136, 136, 0.4);;
+}
+
+@mixin default-drop(){
+  box-shadow: 0 1px 3px rgba(136, 136, 136, 0.2);
+}
+

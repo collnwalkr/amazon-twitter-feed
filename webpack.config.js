@@ -57,6 +57,12 @@ module.exports = {
     performance: {
         hints: false
     },
+    target: 'web',
+    node: {
+        fs: "empty",
+        tls: "empty",
+        net: "empty"
+    },
     devtool: '#eval-source-map',
     plugins: [
         new HtmlWebpackPlugin({
