@@ -1,29 +1,37 @@
 <template>
 
-    <div id="">
-        this is template body
-
+    <div id="app">
         <h1>{{ msg }}</h1>
+        <tweet/>
     </div>
 
 </template>
 
 <script>
-    export default{
-        name: 'twitter-widget',
-        data(){
-            return{
-                msg:'hello vue'
-            }
-        },
-    }
+import tweet from './Tweet.vue'
+
+export default{
+    name: 'twitter-widget',
+    components: {
+        tweet
+    },
+    data(){
+        return{
+            msg:'#Amazon'
+        }
+    },
+}
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import "../css/variables.scss";
+@import "../../node_modules/reset-css/reset.css";
 
-    div {
-        background-color: green;
-    }
-
+#app{
+    font-family: $font;
+    color: $font-color;
+    width: $widget-width;
+    height: $widget-height;
+    background: $sidebar-color;
+}
 </style>

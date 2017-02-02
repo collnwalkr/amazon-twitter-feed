@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import App from './vue/App.vue'
+import inject from './js/inject'
 
-var app = document.createElement( 'div' );
-//append all elements
-document.body.appendChild( app );
-app.id = 'app';
+inject()
 
 new Vue({
     el: '#app',

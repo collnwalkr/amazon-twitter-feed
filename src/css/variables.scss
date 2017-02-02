@@ -1,29 +1,45 @@
 // DIMENSIONS
-$widget-height: 400px;
+$widget-height: 260px;
+$widget-width : 301px;
 $sidebar-width: 310px;
 $tweet-width  : 289px;
 $tweet-height : 128px;
-$tweet-padding: 15px 12px 10px 12px;
+$tweet-padding: 12px 12px 10px 12px;
+$margin-time  : 5px;
 
 // FONTS
-$font      :  Arial,sans-serif;
-$large-font:  14px;
-$small-font:  12px;
+$font       :  Arial,sans-serif;
+$large-font :  14px;
+$small-font :  12px;
+$line-height:  16px;
 
 // COLORS
 $sidebar-color: #F9F9F9;
 $side-accent  : #247BBD;
 $link-color   : #247BBD;
+$border-color : #E8E8E8;
 $font-color   : #111;
 $amazon-color : #C45500;
 $hashtag-color: #777;
+$screen-color : #777;
 
 // DROP SHADOWS
 @mixin hover-drop(){
-  box-shadow: 0 1px 3px rgba(136, 136, 136, 0.4);;
+  box-shadow: 0 0 5px rgba(136, 136, 136, 1);
+  transition: box-shadow .2s ease-out;
 }
 
 @mixin default-drop(){
-  box-shadow: 0 1px 3px rgba(136, 136, 136, 0.2);
+  box-shadow: 0 0 3px rgba(136, 136, 136, 0.3);
+  transition: box-shadow .2s ease-out;
 }
 
+// BORDERS
+@mixin tweet-border() {
+  border-radius: 3px;
+  border: solid 1px $border-color;
+}
+
+@mixin border-accent() {
+  border-left: solid 4px $side-accent;
+}
