@@ -105,3 +105,20 @@
     height: 100% !important;
   }
 }
+
+
+span.amazon-header{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: $large-font;
+  font-weight: bold;
+  color: $amazon-color;
+  transition-timing-function: ease-out;
+  transition-duration: 0.2s;
+
+  &.off-screen{
+    transform: translate3d(0px, -$tweet-height, 0px);
+
+  }
+}

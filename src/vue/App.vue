@@ -3,7 +3,12 @@
     <div id="app">
         <div class="top carousel">
             <tweet  v-for="(tweet, index) in tweets" v-bind:t="tweet" class="tweet-app" :class="{ first : index === 0, active : index === 0  }"/>
+            <end-slide class="tweet-app"/>
         </div>
+
+        <span class="amazon-header">
+            {{ header }}
+        </span>
 
         <button class="control-btn" id="next-btn">
             <span id="next-btn-img"></span>
@@ -17,27 +22,32 @@
 
 <script>
 import tweet from './Tweet.vue'
+import endSlide from './EndSlide.vue'
 import 'jquery'
 import 'bxslider'
 import buildCarousel from '../js/carousel'
 import tweetPromise from '../js/request'
+import fallbackTweets from '../fallback-tweets'
 
 export default{
     name: 'twitter-widget',
     components: {
-        tweet
+        tweet,
+        endSlide
     },
     data(){
         return{
-            msg:'#Amazon',
-            tweets: {}
+            header:'#Amazon',
+            tweets: {},
         }
-    },
-    computed: {
     },
     created : function () {
         tweetPromise.then((response) => {
             this.tweets = response.data.statuses;
+            buildCarousel()
+        })
+        .catch((err) => {
+            this.tweets = fallbackTweets.statuses;
             buildCarousel()
         });
     }

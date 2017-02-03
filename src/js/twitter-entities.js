@@ -67,22 +67,27 @@ export default function linkifyEntities(tweet)
 
     if (tweet.entities.urls) {
         $.each(tweet.entities.urls, function(i,entry) {
-            let host = parse(entry.expanded_url).host
-            let addClass = host.includes('amazon') ? 'amazon-url' : '';
-            index_map[entry.indices[0]] = [entry.indices[1], function(text) {return "<a class='" + addClass + "' href='"+escapeHTML(entry.url)+"'>"+escapeHTML(entry.display_url)+"</a>";}];
+            let host = parse(entry.expanded_url).host;
+            let amazonUrl = host.includes('amazon') || host.includes('amzn');
+            if(amazonUrl){
+                index_map[entry.indices[0]] = [entry.indices[1], function(text) {return "<a class='amazon-url' href='"+escapeHTML(entry.url)+"'>"+escapeHTML(entry.display_url)+"</a>";}];
+            }
+            else {
+                index_map[entry.indices[0]] = [entry.indices[1], function(text) {return "<span>"+escapeHTML(entry.display_url)+"</span>";}];
+            }
         });
     }
 
     if (tweet.entities.hashtags) {
         $.each(tweet.entities.hashtags, function(i,entry) {
             let addClass = entry.text.toLowerCase() === 'amazon' ? 'amazon-hashtag' : '';
-            index_map[entry.indices[0]] = [entry.indices[1], function(text) {return "<a class='hashtag " + addClass + "' href='http://twitter.com/search?q="+escape("#"+entry.text)+"'>"+escapeHTML(text)+"</a>";}];
+            index_map[entry.indices[0]] = [entry.indices[1], function(text) {return "<span class='hashtag " + addClass + "'>"+escapeHTML(text)+"</span>";}];
         });
     }
 
     if (tweet.entities.user_mentions) {
         $.each(tweet.entities.user_mentions, function(i,entry) {
-            index_map[entry.indices[0]] = [entry.indices[1], function(text) {return "<a title='"+escapeHTML(entry.name)+"' href='http://twitter.com/"+escapeHTML(entry.screen_name)+"'>"+escapeHTML(text)+"</a>";}];
+            index_map[entry.indices[0]] = [entry.indices[1], function(text) {return "<span class='user'>"+escapeHTML(text)+"</span>";}];
         });
     }
 

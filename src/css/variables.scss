@@ -5,7 +5,7 @@ $side-bland   : #777;
 $link-color   : #247BBD;
 $border-color : #E8E8E8;
 $font-color   : #111;
-$amazon-color : #C45500;
+$amazon-color : #c45500;
 $hashtag-color: #777;
 $screen-color : #777;
 
@@ -65,6 +65,11 @@ $b-button-shadow  : 0 1px 3px #888;
   border-radius: 3px;
   border-left: solid 4px $side-bland;
 }
+
+@mixin border-accent-end() {
+  border-left: solid 4px $amazon-color;
+}
+
 
 // OPACITY
 @mixin opacity-active() {

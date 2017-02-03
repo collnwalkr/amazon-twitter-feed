@@ -1,7 +1,9 @@
 <template>
 
     <div class="tweet">
-        <p class="time-stamp">{{ time }}</p>
+        <a class="time-stamp" :href="tweetUrl" target="_blank">
+            {{ time }}
+        </a>
         <div class="tweet-content" v-html="tweetContent"></div>
         <div class="user">
             <span class="user-name">{{ name }}</span>
@@ -33,6 +35,9 @@ export default{
             let date = this.t.created_at;
             let passed = moment(date, 'dd MMM DD HH:mm:ss ZZ YYYY').fromNow()
             return passed;
+        },
+        tweetUrl: function () {
+            return 'https://twitter.com/' + this.t.user.screen_name + '/status/' + this.t.id_str;
         }
     }
 }
@@ -69,18 +74,26 @@ export default{
     margin-bottom: $margin-time;
 }
 
+a {
+    color: $link-color;
+    text-decoration: none;
+    &:hover{
+        text-decoration: underline;
+        color: $amazon-color;
+    }
+}
+
 .tweet-content{
     font-size: $small-font;
     line-height: $line-height;
 
-    a {
-        color: $link-color;
-        text-decoration: none;
-    }
-
     .hashtag{
         font-weight: bold;
         color: $hashtag-color;
+    }
+
+    .user{
+        color: $screen-color;
     }
 
     .amazon-hashtag{
@@ -89,11 +102,11 @@ export default{
 }
 
 .user{
-    font-size: $large-font;
+    font-size: $small-font;
     margin-top: auto;
     .user-name{
-
     }
+
     .user-screen{
         color: $screen-color;
     }
