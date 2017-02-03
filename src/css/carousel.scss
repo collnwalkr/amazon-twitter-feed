@@ -1,0 +1,107 @@
+.control-btn{
+  width: $btn-width;
+  margin-left: -$btn-width/2;
+  height: 30px;
+  padding: 0;
+  background-color: $sidebar-color;
+  border: none;
+  z-index: 1000;
+  @include opacity-none();
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1000;
+  }
+
+  &:hover{
+    span{
+      @include opacity-active();
+    }
+  }
+
+  span{
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0.5;
+    transition: opacity .2s ease-out;
+  }
+}
+
+#next-btn{
+  position: absolute;
+  bottom: 0;
+  left:50%;
+  border-radius: $b-button-radius;
+  box-shadow: $b-button-shadow;
+  #next-btn-img{
+    background: url('../assets/down.png') no-repeat center;
+    background-size: 22px 13px;
+  }
+
+  &.active{
+    @include opacity-active();
+  }
+
+  &.fade{
+    @include opacity-default();
+  }
+
+  &.fade-hide{
+    @include opacity-none();
+  }
+
+}
+
+#prev-btn{
+  position: absolute;
+  top: 0;
+  left:50%;
+  border-radius: $t-button-radius;
+  box-shadow: $t-button-shadow;
+  #prev-btn-img{
+    background: url('../assets/up.png') no-repeat center;
+    background-size: 22px 13px;
+  }
+
+  &.active{
+    @include opacity-active();
+  }
+
+  &.fade{
+    @include opacity-default();
+  }
+
+  &.fade-hide{
+    @include opacity-none();
+  }
+
+}
+
+.carousel{
+  &.top{
+    transform: translate3d(0px, $translate, 0px) !important;
+  }
+}
+
+.tweet-app {
+  margin: $tweet-margin auto;
+}
+
+.first {
+  margin-top: 40px;
+}
+
+.bx-wrapper{
+  margin: 0;
+  height: 260px;
+  box-shadow: none;
+  border: none;
+  .bx-viewport{
+    height: 100% !important;
+  }
+}

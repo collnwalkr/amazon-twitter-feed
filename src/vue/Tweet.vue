@@ -12,23 +12,27 @@
 </template>
 
 <script>
-import tweet from '../example-tweet.json'
 import parseTweet from '../js/twitter-entities'
+import moment from 'moment'
 
 export default{
     name: 'tweet',
+    props: ['t'],
     data(){
         return{
-            time: '31 seconds ago',
             msg: 'hello vue',
-            name: tweet.user.name,
-            screen: '@' + tweet.user.screen_name,
-            tweet: tweet
+            name: this.t.user.name,
+            screen: '@' + this.t.user.screen_name
         }
     },
     computed: {
         tweetContent: function () {
-            return parseTweet(tweet)
+            return parseTweet(this.t)
+        },
+        time: function () {
+            let date = this.t.created_at;
+            let passed = moment(date, 'dd MMM DD HH:mm:ss ZZ YYYY').fromNow()
+            return passed;
         }
     }
 }
@@ -46,6 +50,7 @@ export default{
     flex-direction: column;
     @include border-bland();
     @include opacity-default();
+    @include drop-none();
 
     &.active{
         @include drop-active();

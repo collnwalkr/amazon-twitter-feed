@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let url = 'http://192.168.0.5:3000/'
+let url = 'https://collinwalker.guru/api/'
 
 let tweetPromise = axios.get(url)
 

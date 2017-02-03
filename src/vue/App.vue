@@ -2,14 +2,15 @@
 
     <div id="app">
         <div class="top carousel">
-            <tweet class = "tweet-app active first"/>
-            <tweet class = "tweet-app"/>
-            <tweet class = "tweet-app"/>
-            <tweet class = "tweet-app"/>
+            <tweet  v-for="(tweet, index) in tweets" v-bind:t="tweet" class="tweet-app" :class="{ first : index === 0, active : index === 0  }"/>
         </div>
 
-        <button class="control-btn" id="next-btn"></button>
-        <button class="control-btn" id="prev-btn"></button>
+        <button class="control-btn" id="next-btn">
+            <span id="next-btn-img"></span>
+        </button>
+        <button class="control-btn fade fade-hide" id="prev-btn">
+            <span id="prev-btn-img"></span>
+        </button>
     </div>
 
 </template>
@@ -17,46 +18,9 @@
 <script>
 import tweet from './Tweet.vue'
 import 'jquery'
-import bxslider from 'bxslider'
-
-let updateActive = (el, oldIndex, newIndex) => {
-    try{
-        $('.tweet.active').removeClass('active')
-        $(el).addClass('active')
-    } catch(e) {
-        console.log(e)
-    }
-}
-
-$(document).ready(function(){
-    $('.carousel').bxSlider({
-        mode: 'vertical',
-        slideWidth: 301,
-        speed: 200,
-        minSlides: 1,
-        easing: 'ease-out',
-        infiniteLoop: false,
-        touchEnabled: false,
-        nextSelector: $('#next-btn'),
-        prevSelector: $('#prev-btn'),
-        nextText: '',
-        prevText: '',
-        pager: false,
-        onSlideNext: function(el, oldIndex, newIndex){
-            $('.carousel').removeClass('top')
-            updateActive(el, oldIndex, newIndex)
-        },
-        onSlidePrev: function(el, oldIndex, newIndex){
-            if(newIndex === 0) $('.carousel').addClass('top')
-            else $('.carousel').removeClass('top')
-            updateActive(el, oldIndex, newIndex)
-        }
-  });
-
-
-
-});
-
+import 'bxslider'
+import buildCarousel from '../js/carousel'
+import tweetPromise from '../js/request'
 
 export default{
     name: 'twitter-widget',
@@ -65,9 +29,18 @@ export default{
     },
     data(){
         return{
-            msg:'#Amazon'
+            msg:'#Amazon',
+            tweets: {}
         }
     },
+    computed: {
+    },
+    created : function () {
+        tweetPromise.then((response) => {
+            this.tweets = response.data.statuses;
+            buildCarousel()
+        });
+    }
 }
 </script>
 
@@ -75,6 +48,7 @@ export default{
 @import "../css/variables.scss";
 @import "../../node_modules/reset-css/reset.css";
 @import "../../node_modules/bxslider/dist/jquery.bxslider.min.css";
+@import "../css/carousel.scss";
 
 #app{
     font-family: $font;
@@ -84,62 +58,7 @@ export default{
     background: $sidebar-color;
     position: relative;
     overflow: hidden;
+    margin-left: -18px;
 }
 
-.control-btn{
-    width: $btn-width;
-    margin-left: -$btn-width/2;
-    height: 30px;
-    padding: 0;
-    background-color: $sidebar-color;
-    border: none;
-
-    a {
-        display: block;
-        width: 100%;
-        height: 100%;
-    }
-}
-
-#next-btn{
-    position: absolute;
-    bottom: 0;
-    left:50%;
-    border-radius: $b-button-radius;
-    box-shadow: $b-button-shadow;
-
-}
-
-#prev-btn{
-    position: absolute;
-    top: 0;
-    left:50%;
-    border-radius: $t-button-radius;
-    box-shadow: $t-button-shadow;
-
-}
-
-.carousel{
-    &.top{
-        transform: translate3d(0px, $translate, 0px) !important;
-    }
-}
-
-.tweet-app {
-    margin: $tweet-margin auto;
-}
-
-.first {
-    margin-top: 40px;
-}
-
-.bx-wrapper{
-    margin: 0;
-    height: 260px;
-    box-shadow: none;
-    border: none;
-    .bx-viewport{
-        height: 100% !important;
-    }
-}
 </style>
