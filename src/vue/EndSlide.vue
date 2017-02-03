@@ -60,6 +60,7 @@ export default{
 
         p{
             vertical-align: middle;
+            -webkit-margin-before: 0;
         }
 
         span{

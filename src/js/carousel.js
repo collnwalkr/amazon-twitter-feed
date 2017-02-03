@@ -30,7 +30,7 @@ let bxslider = () => {
             $('#prev-btn').removeClass('fade');
             $('span.amazon-header').addClass('off-screen');
 
-            if(newIndex === tweetCount - 1) {
+            if(newIndex === tweetCount) {
                 $('#next-btn').addClass('fade');
             }
             else {

@@ -56,7 +56,6 @@ export default{
 
 <style lang="scss">
 @import "../css/variables.scss";
-@import "../../node_modules/reset-css/reset.css";
 @import "../../node_modules/bxslider/dist/jquery.bxslider.min.css";
 @import "../css/carousel.scss";
 
