@@ -3,9 +3,14 @@ $widget-height: 260px;
 $widget-width : 301px;
 $sidebar-width: 310px;
 $tweet-width  : 289px;
-$tweet-height : 128px;
+$tweet-height : 130px;
 $tweet-padding: 12px 12px 10px 12px;
 $margin-time  : 5px;
+$tweet-margin : 20px;
+$translate    : 15px;
+$margin-first : ($widget-height - $tweet-height) / 2 - $translate;
+$btn-width    : 126px;
+
 
 // FONTS
 $font       :  Arial,sans-serif;
@@ -16,6 +21,7 @@ $line-height:  16px;
 // COLORS
 $sidebar-color: #F9F9F9;
 $side-accent  : #247BBD;
+$side-bland   : #d2d2d2;
 $link-color   : #247BBD;
 $border-color : #E8E8E8;
 $font-color   : #111;
@@ -24,12 +30,12 @@ $hashtag-color: #777;
 $screen-color : #777;
 
 // DROP SHADOWS
-@mixin hover-drop(){
+@mixin drop-hover(){
   box-shadow: 0 0 5px rgba(136, 136, 136, 1);
   transition: box-shadow .2s ease-out;
 }
 
-@mixin default-drop(){
+@mixin drop-active(){
   box-shadow: 0 0 3px rgba(136, 136, 136, 0.3);
   transition: box-shadow .2s ease-out;
 }
@@ -43,3 +49,20 @@ $screen-color : #777;
 @mixin border-accent() {
   border-left: solid 4px $side-accent;
 }
+
+@mixin border-bland() {
+  border-radius: 3px;
+  border-left: solid 4px $side-bland;
+}
+
+// OPACITY
+@mixin opacity-active() {
+  opacity: 1;
+  transition: opacity .2s ease-out;
+}
+
+@mixin opacity-default() {
+  opacity: 0.4;
+  transition: opacity .2s ease-out;
+}
+

@@ -37,6 +37,10 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
+                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                loader: 'url-loader',
+            },
+            {
                 test: /\.(png|jpg|gif|svg)$/,
                 loader: 'file-loader',
                 options: {
@@ -79,6 +83,11 @@ module.exports = {
             template: path.join(__dirname, "src", "background.html"),
             filename: "background.html",
             chunks: ["background"]
+        }),
+        new webpack.ProvidePlugin({
+            jQuery: 'jquery',
+            $: 'jquery',
+            jquery: 'jquery'
         }),
         new WriteFilePlugin(),
     ]

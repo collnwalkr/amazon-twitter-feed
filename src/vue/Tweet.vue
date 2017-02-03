@@ -15,10 +15,6 @@
 import tweet from '../example-tweet.json'
 import parseTweet from '../js/twitter-entities'
 
-let res = parseTweet(tweet)
-
-console.log(res)
-
 export default{
     name: 'tweet',
     data(){
@@ -42,19 +38,23 @@ export default{
 @import "../css/variables";
 
 .tweet{
-    width: $tweet-width;
+    width: $tweet-width !important;
     height: $tweet-height;
     box-sizing: border-box;
     padding: $tweet-padding;
-    @include tweet-border();
-    @include border-accent();
-    @include default-drop();
-    margin: auto;
     display: flex;
     flex-direction: column;
+    @include border-bland();
+    @include opacity-default();
 
+    &.active{
+        @include drop-active();
+        @include opacity-active();
+        @include tweet-border();
+        @include border-accent();
+    }
     &:hover{
-        @include hover-drop();
+        @include drop-hover();
     }
 }
 
