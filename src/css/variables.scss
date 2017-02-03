@@ -1,3 +1,14 @@
+// COLORS
+$sidebar-color: #F9F9F9;
+$side-accent  : #247BBD;
+$side-bland   : #777;
+$link-color   : #247BBD;
+$border-color : #E8E8E8;
+$font-color   : #111;
+$amazon-color : #C45500;
+$hashtag-color: #777;
+$screen-color : #777;
+
 // DIMENSIONS
 $widget-height: 260px;
 $widget-width : 301px;
@@ -11,23 +22,18 @@ $translate    : 15px;
 $margin-first : ($widget-height - $tweet-height) / 2 - $translate;
 $btn-width    : 126px;
 
-
 // FONTS
 $font       :  Arial,sans-serif;
 $large-font :  14px;
 $small-font :  12px;
 $line-height:  16px;
 
-// COLORS
-$sidebar-color: #F9F9F9;
-$side-accent  : #247BBD;
-$side-bland   : #d2d2d2;
-$link-color   : #247BBD;
-$border-color : #E8E8E8;
-$font-color   : #111;
-$amazon-color : #C45500;
-$hashtag-color: #777;
-$screen-color : #777;
+// BUTTON
+$t-button-radius  : 0 0 3px 3px;
+$b-button-radius  : 3px 3px 0 0;
+$t-button-shadow  : 0 -1px 3px #888;
+$b-button-shadow  : 0 1px 3px #888;
+
 
 // DROP SHADOWS
 @mixin drop-hover(){

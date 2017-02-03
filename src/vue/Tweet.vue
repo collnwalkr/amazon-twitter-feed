@@ -21,8 +21,8 @@ export default{
         return{
             time: '31 seconds ago',
             msg: 'hello vue',
-            name: 'Bill Klein',
-            screen: '@ReallyBillKlein',
+            name: tweet.user.name,
+            screen: '@' + tweet.user.screen_name,
             tweet: tweet
         }
     },

@@ -83,6 +83,7 @@ export default{
     height: $widget-height;
     background: $sidebar-color;
     position: relative;
+    overflow: hidden;
 }
 
 .control-btn{
@@ -90,6 +91,8 @@ export default{
     margin-left: -$btn-width/2;
     height: 30px;
     padding: 0;
+    background-color: $sidebar-color;
+    border: none;
 
     a {
         display: block;
@@ -102,12 +105,18 @@ export default{
     position: absolute;
     bottom: 0;
     left:50%;
+    border-radius: $b-button-radius;
+    box-shadow: $b-button-shadow;
+
 }
 
 #prev-btn{
     position: absolute;
     top: 0;
     left:50%;
+    border-radius: $t-button-radius;
+    box-shadow: $t-button-shadow;
+
 }
 
 .carousel{
